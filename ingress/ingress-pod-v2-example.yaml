@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ingress-pod-v2-example
+  labels:
+    app: demoapp
+    ver: v2
+spec:
+  containers:
+  - name: demoapp-v2
+    image: tuxotron/demoapp:v2
+    ports:
+    - containerPort: 8080
+      name: http

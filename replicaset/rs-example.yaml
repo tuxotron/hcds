@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: rs-example
+  labels:
+    app: rs-example
+    tier: frontend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: demoapp
+      ver: v1
+  template:
+    metadata:
+      labels:
+        app: demoapp
+        ver: v1
+    spec:
+      containers:
+      - name: rs-nginx
+        image: tuxotron/demoapp:v1
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        ports:
+        - containerPort: 8080

@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: configmap-pod-example
+spec:
+  containers:
+  - name: nginx
+    image: nginx:stable-alpine
+    ports:
+    - containerPort: 80
+      name: http
+      protocol: TCP
+    env:
+      - name: MYVAR
+        value: myvalue
+      - name: LANG
+        valueFrom: 
+          configMapKeyRef:
+            key: lang
+            name: demoapp-configmap
+          
+    volumeMounts:
+      - name: demoapp-configmap-vol
+        mountPath: /myconfig
+  volumes:
+    - name: demoapp-configmap-vol
+      configMap:
+        name: demoapp-configmap
